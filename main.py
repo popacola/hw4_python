@@ -23,3 +23,36 @@
 # Напишите программу для нахождения максимального числа ягод, которое может собрать за один заход собирающий модуль,
 # находясь перед некоторым кустом заданной во входном файле грядки.
 
+from random import randint
+
+
+def input_n():
+    n = int(input("Введите количество кустов на грядке: "))
+    if n < 3:
+        print("Должно быть минимум 3 куста.")
+        input_n()
+    else:
+        return n
+
+
+def max_index(shrub):
+    max_value = max(shrub)
+    for i, j in enumerate(shrub):
+        if j == max_value:
+            return i
+
+
+shrub_bed = [randint(10,50) for _ in range(input_n())]
+print(shrub_bed)
+
+index = max_index(shrub_bed)
+
+if index == len(shrub_bed)-1:
+    berry_sum = shrub_bed[index] + shrub_bed[index - 1] + shrub_bed[0]
+    print(f"Максимальное число ягод, которое может собрать за один заход собирающий модуль: {berry_sum}")
+elif index == 0:
+    berry_sum = shrub_bed[index] + shrub_bed[index + 1] + shrub_bed[len(shrub_bed)-1]
+    print(f"Максимальное число ягод, которое может собрать за один заход собирающий модуль: {berry_sum}")
+else:
+    berry_sum = shrub_bed[index] + shrub_bed[index - 1] + shrub_bed[index + 1]
+    print(f"Максимальное число ягод, которое может собрать за один заход собирающий модуль: {berry_sum}")
